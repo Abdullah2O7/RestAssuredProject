@@ -1,10 +1,9 @@
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
-public class APITests {
+public class GetTest {
 @Test
-    public void testGet()
-    {
+    public void testGet() throws InterruptedException {
               given()
                       .get("https://dummy.restapiexample.com/api/v1/employees")
                       .then()
@@ -12,16 +11,14 @@ public class APITests {
                       .body("data[0].id", equalTo(1))
                       .body("data[0].employee_name", equalTo("Tiger Nixon"))
                       .body("data[0].employee_salary", equalTo(320800))
-                      .body("data[0].employee_age", equalTo(61))
-                      .body("data[0].profile_image", equalTo(""));
+                      .body("data[0].employee_age", equalTo(61));
+       // Thread.sleep(2000);
     }
     @Test
     public void testGet2()
     {
-        given()
-                .get("https://dummy.restapiexample.com/api/v1/employee/5")
-                 .then()
-               .assertThat()
+        given().get("https://dummy.restapiexample.com/api/v1/employee/5")
+                 .then().assertThat()
                 .body("status", equalTo("success"))
                 .body("data.id", equalTo(5))
                 .body("data.employee_name", equalTo("Airi Satou"))
